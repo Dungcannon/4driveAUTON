@@ -126,25 +126,27 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
-  Drivetrain.driveFor(-3, inches);
+  DrivetrainInertial.calibrate();
+  Drivetrain.setDriveVelocity(200, rpm);
   Drivetrain.setHeading(0, degrees);
-  Drivetrain.turnToHeading(15, degrees);
-  Drivetrain.driveFor(-1, inches);
+
+  Drivetrain.driveFor(5, inches);
+
+  Drivetrain.turnToHeading(25, degrees);
+  Drivetrain.driveFor(3, inches);
   TriggerHappy(30000);
+
+  Drivetrain.turnToHeading(45, degrees);
+
+  Drivetrain.driveFor(-70, inches);
   Drivetrain.turnToHeading(0, degrees);
-
-  Drivetrain.driveFor(70, inches);
-  Drivetrain.turnToHeading(90, degrees);
-  Drivetrain.driveFor(10, inches);
+  Drivetrain.driveFor(-10, inches);
   DoubleSolenoid(true);
-  Drivetrain.driveFor(10, inches);
+  Drivetrain.driveFor(-100, inches);
+  Drivetrain.driveFor(6, inches);
+  Collector.spin(reverse);
 
-  // Smooth Turn Left
-  RightDriveSmart.spin(fwd, 12, volt);
-  LeftDriveSmart.spin(fwd, 6, volt);
-  wait(1, seconds);
-  RightDriveSmart.stop();
-  LeftDriveSmart.stop();
+  
 }
 
 int main() {
