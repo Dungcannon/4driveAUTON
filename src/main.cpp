@@ -32,7 +32,7 @@ motor rightMotorA = motor(PORT3, ratio18_1, false);
 motor rightMotorB = motor(PORT4, ratio18_1, false);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 inertial DrivetrainInertial = inertial(PORT5);
-smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 320, 320, 40, mm, 1);
+smartdrive Drivetrain = smartdrive(RightDriveSmart, LeftDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
 controller Controller1 = controller(primary);
 motor Collector = motor(PORT6, ratio18_1, false);
@@ -42,8 +42,8 @@ digital_out SolenoidA = digital_out(ThreeWirePort.A);
 digital_out SolenoidB = digital_out(ThreeWirePort.B);
 motor Catapult = motor(PORT8, ratio18_1, false);
 
-motor DoubleReverseMotorA = motor(PORT8, ratio36_1, false);
-motor DoubleReverseMotorB = motor(PORT9, ratio36_1, false);
+motor DoubleReverseMotorA = motor(PORT9, ratio36_1, false);
+motor DoubleReverseMotorB = motor(PORT10, ratio36_1, false);
 motor_group DoubleReverse = motor_group(DoubleReverseMotorA, DoubleReverseMotorB);
 
 digital_in HomeJumper = digital_in(ThreeWirePort.G);
@@ -98,6 +98,7 @@ void UnlockIt(){
 void MotorDrive(double x, double y){
   LeftDriveSmart.spinFor(x, degrees, false);
   RightDriveSmart.spinFor(y, degrees, true);
+  
 }
 
 void TriggerHappy(int timems) 
@@ -125,6 +126,7 @@ void pre_auton(void) {
 }
 
 void autonomous(void) {
+  Drivetrain.driveFor(-3, inches);
   Drivetrain.setHeading(0, degrees);
   Drivetrain.turnToHeading(15, degrees);
   Drivetrain.driveFor(-1, inches);
