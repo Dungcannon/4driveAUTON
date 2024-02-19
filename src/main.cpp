@@ -118,7 +118,7 @@ void DoubleSolenoid(bool isExtended){
 
 void pre_auton(void) {
   calibrateDrivetrain();
-  Catapult.setVelocity(75, percent); // catapult shoot speed
+  Catapult.setVelocity(100, percent); // catapult shoot speed
   Catapult.setMaxTorque(100, percent); // catapult torque
   Collector.setVelocity(100, percent);
   Catapult.setStopping(hold);
@@ -127,7 +127,25 @@ void pre_auton(void) {
 
 void autonomous(void) {
   DrivetrainInertial.calibrate();
+  Drivetrain.setHeading(0, degrees);
   Drivetrain.setDriveVelocity(200, rpm);
+  Catapult.setVelocity(100, percent);
+  Drivetrain.drive(reverse);
+  wait(0.3, seconds);
+  Drivetrain.stop();
+  Catapult.spin(reverse);
+  wait(45, seconds);
+  Catapult.stop();
+  Drivetrain.turnToHeading(30, degrees);
+  Drivetrain.drive(forward);
+  wait(10, seconds);
+  Drivetrain.stop();
+  UnlockIt();
+
+
+
+
+  /*Drivetrain.setDriveVelocity(200, rpm);
   Drivetrain.setHeading(0, degrees);
 
   Drivetrain.driveFor(5, inches);
@@ -144,7 +162,7 @@ void autonomous(void) {
   DoubleSolenoid(true);
   Drivetrain.driveFor(-100, inches);
   Drivetrain.driveFor(6, inches);
-  Collector.spin(reverse);
+  Collector.spin(reverse);*/
 
   
 }
